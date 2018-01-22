@@ -1,29 +1,36 @@
 //
-// Created by artek on 30.09.17.
+// Created by Артем Чумаченко on 13.12.2017.
 //
 
-#ifndef GRAVITYSHOWED_PHYSICS_H
-#define GRAVITYSHOWED_PHYSICS_H
+#ifndef GRAVITY_PHYSICS_H
+#define GRAVITY_PHYSICS_H
+#include <glm/glm.hpp>
+#include <glm/vec2.hpp>
+#include <glm/gtx/norm.hpp>
 
-#include "Vectors.h"
+const float G = 0.000001;
 
 class Object{
-    double mass;
 private:
-    Vector radius_v;
-    Vector velocity;
+    float mass;
+    glm::vec2 cordinate;
+    glm::vec2 velocity;
 public:
-    void refresh(double dt);
-    void acceler(Vector g, double dt);
-    Vector coordinate();
+    void set(float mass, glm::vec2 cordinate, glm::vec2 velocity);
+    float m();
+    void a(glm::vec2 ac, float t);
+    void update(float t);
+    void update(glm::vec2 s);
+    void v_set(glm::vec2 v);
+    glm::vec2 r();
+    glm::vec2 v();
+};
 
+class Physics {
+public:
+    static glm::vec2 Force(Object a, Object b);
+    static void Collision(Object *a, Object *b);
 };
 
 
-class Physics{
-    const double G = 1;
-    Vector Force(Object a, Object b);
-};
-
-
-#endif //GRAVITYSHOWED_PHYSICS_H
+#endif //GRAVITY_PHYSICS_H

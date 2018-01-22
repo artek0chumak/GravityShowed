@@ -1,12 +1,14 @@
-cmake_minimum_required(VERSION 3.8)
-project(GravityShowed)
+cmake_minimum_required(VERSION 3.9)
+project(Gravity)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -lGLEW -lglfw3 -lGL -lX11 -lXrandr -Wall -ldl -lpthread -lXi -lm -lGLU")
-find_package(glfw3 REQUIRED)
-find_package(GLEW REQUIRED)
-find_package(OpenGL REQUIRED)
+set(CMAKE_CXX_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo")
 
-set(SOURCE_FILES main.cpp Shaders.cpp Shaders.h Vectors.h Vectors.cpp Physics.cpp Physics.h)
-add_executable(GravityShowed ${SOURCE_FILES})
-target_link_libraries(GravityShowed glfw GLEW GL)
+link_directories(/usr/local/include)
+add_executable(Gravity main.cpp Physics.cpp Scene.cpp)
+find_package(glm REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(glfw3 3.2 REQUIRED)
+
+include_directories( ${GLM_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIRS}  ${GLFW_INCLUDE_DIRS})
+target_link_libraries(Gravity glfw)
